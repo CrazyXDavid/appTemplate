@@ -7,29 +7,71 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body {
+            font-family: 'Open Sans';
+            font-weight: 300;
+        }
+        
+        .page-title {
+            font-family: 'Ubuntu';
+            font-weight: 500;
+        }
+        
+        input.form-control {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
         <div class="row h-100 w-100">
-            <div class="col my-auto mx-auto">
-                <input type="text" class="form-control" placeholder="Project Name (e.g. Hayhaynoodle)" id="projectName">
-                <input type="text" class="form-control" placeholder="WEBSITE_HOMEPAGE" id="homepage">
-                <input type="text" class="form-control" placeholder="WEBSITE_SHOP" id="shop">
-                <input type="text" class="form-control" placeholder="WEBSITE_ACCOUNT" id="account">
-                <input type="text" class="form-control" placeholder="WEBSITE_ABOUTUS" id="aboutus">
-                <button type="button" class="btn btn-outline-primary" id="generateXML" data-toggle="modal" data-target="#outputModal">
-                    生成 XML
-                </button>
-                <button type="button" class="btn btn-outline-primary" id="generateJava" data-toggle="modal" data-target="#outputModal">
-                    生成 Java
-                </button>
-                <button type="button" class="btn btn-outline-primary" id="generateThemeStyle" data-toggle="modal" data-target="#outputModal">
-                    生成 Theme Style
-                </button>
-                <button type="button" class="btn btn-outline-primary" id="generateAndroidManifest" data-toggle="modal" data-target="#outputModal">
-                    生成 Android Manifest
-                </button>
+            <div class="my-auto mx-auto">
+                <div class="card">
+                    <div class="card-body m-4">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <h2 class="page-title text-center">App Template Generator</h2>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-sm" placeholder="項目名稱 e.g. Hayhaynoodle" id="projectName">
+                            </div>
+                            <div class="form-group">
+
+                                <input type="text" class="form-control form-control-sm" placeholder="“主頁 ”網址" id="homepage">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-sm" placeholder="“商店” 網址" id="shop">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-sm" placeholder="“我的帳號” 網址" id="account">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-sm" placeholder="“關於我們” 網址" id="aboutus">
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-outline-primary" id="generateXML" data-toggle="modal" data-target="#outputModal">
+                      生成 XML
+                  </button>
+                                <button type="button" class="btn btn-outline-primary" id="generateJava" data-toggle="modal" data-target="#outputModal">
+                      生成 Java
+                  </button>
+                                <button type="button" class="btn btn-outline-primary" id="generateThemeStyle" data-toggle="modal" data-target="#outputModal">
+                      生成 Theme Style
+                  </button>
+                                <button type="button" class="btn btn-outline-primary" id="generateAndroidManifest" data-toggle="modal" data-target="#outputModal">
+                      生成 Android Manifest
+                  </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -37,16 +79,16 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">生成</h5>
+                    <h5 class="modal-title">null</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                          <span aria-hidden="true">&times;</span>
+                      </button>
                 </div>
                 <div class="modal-body">
                     <textarea id="output" class="form-control" rows=25 readonly></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="copyOutput" class="btn btn-primary">複製</button>
+                    <button type="button" id="copyOutput" class="btn btn-primary btn-block" data-dismiss="modal" aria-label="Close">複製至剪帖板</button>
                 </div>
             </div>
         </div>
@@ -61,22 +103,26 @@
         shop = document.querySelector("#shop").value;
         account = document.querySelector("#account").value;
         aboutus = document.querySelector("#aboutus").value;
-
+        $(".modal-title").html($(this).html())
         setOutput(generateJava(projectName, homepage, shop, account, aboutus))
     })
     document.querySelector("button#generateXML").addEventListener("click", function() {
+        $(".modal-title").html($(this).html())
         setOutput(generateXML())
     })
     document.querySelector("button#generateThemeStyle").addEventListener("click", function() {
         projectName = document.querySelector("#projectName").value;
+        $(".modal-title").html($(this).html())
         setOutput(generateThemeStyle(projectName))
     })
     document.querySelector("button#generateAndroidManifest").addEventListener("click", function() {
         projectName = document.querySelector("#projectName").value;
+        $(".modal-title").html($(this).html())
         setOutput(generateAndroidManifest(projectName))
     })
     $("button#copyOutput").click(function() {
         $("textarea").select();
+
         document.execCommand("copy")
         clearSelection();
     });
@@ -97,196 +143,173 @@
 
     function generateAndroidManifest(projectName) {
         code = `<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hkmgt.${projectName.toLowerCase()}">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_icon"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_icon"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.${projectName}">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.${projectName}.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-
-</manifest>`
+  <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.hkmgt.${projectName.toLowerCase()}">
+      <uses-permission android:name="android.permission.INTERNET" />
+      <application
+          android:allowBackup="true"
+          android:icon="@mipmap/ic_icon"
+          android:label="@string/app_name"
+          android:roundIcon="@mipmap/ic_icon"
+          android:supportsRtl="true"
+          android:theme="@style/Theme.${projectName}">
+          <activity
+              android:name=".MainActivity"
+              android:exported="true"
+              android:theme="@style/Theme.${projectName}.NoActionBar">
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+          </activity>
+      </application>
+  </manifest>`
         return code;
     }
 
     function generateThemeStyle(projectName) {
         code = `<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.${projectName}" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-    </style>
-    <style name="Theme.${projectName}.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-</resources>`
+      <!-- Base application theme. -->
+      <style name="Theme.${projectName}" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+          <!-- Primary brand color. -->
+          <item name="colorPrimary">@color/purple_500</item>
+          <item name="colorPrimaryVariant">@color/purple_700</item>
+          <item name="colorOnPrimary">@color/white</item>
+          <!-- Secondary brand color. -->
+          <item name="colorSecondary">@color/teal_200</item>
+          <item name="colorSecondaryVariant">@color/teal_700</item>
+          <item name="colorOnSecondary">@color/black</item>
+          <!-- Status bar color. -->
+          <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+          <!-- Customize your theme here. -->
+      </style>
+      <style name="Theme.${projectName}.NoActionBar">
+          <item name="windowActionBar">false</item>
+          <item name="windowNoTitle">true</item>
+      </style>
+  </resources>`
         return code
     }
 
     function generateXML() {
         code = `  <?xml version="1.0" encoding="utf-8"?>
-  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="center_vertical"
-      android:orientation="vertical"
-      tools:context=".MainActivity">
-
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_weight="1">
-
-          <WebView
-              android:id="@+id/webView"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_weight="1">
-          </WebView>
-
-          <ProgressBar
-              android:id="@+id/progressBar"
-              style="?android:attr/progressBarStyleLarge"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_centerInParent="true"
-              android:indeterminate="true" />
-      </RelativeLayout>
-
-
-      <com.google.android.material.bottomnavigation.BottomNavigationView
-          android:id="@+id/bottomNavigationView"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_weight="9"
-          app:itemIconTint="#FF9800"
-          app:labelVisibilityMode="labeled"
-          app:itemTextColor="#FF9800"
-          app:menu="@menu/menu_navigation" />
-
-  </LinearLayout>`;
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            </WebView>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true" />
+        </RelativeLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            app:itemIconTint="#FF9800"
+            app:labelVisibilityMode="labeled"
+            app:itemTextColor="#FF9800"
+            app:menu="@menu/menu_navigation" />
+    </LinearLayout>`;
         return code;
     }
 
     function generateJava(projectName, WEBSITE_HOMEPAGE, WEBSITE_SHOP, WEBSITE_ACCOUNT, WEBSITE_ABOUTUS) {
         code = `  package com.hkmgt.${projectName.toLowerCase()};
-  import androidx.annotation.NonNull;
-  import androidx.appcompat.app.AppCompatActivity;
-
-  import android.os.Bundle;
-  import android.view.MenuItem;
-  import android.view.View;
-  import android.webkit.WebSettings;
-  import android.webkit.WebView;
-  import android.webkit.WebViewClient;
-  import android.widget.ProgressBar;
-
-  import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-  public class MainActivity extends AppCompatActivity {
-      private WebView wb;
-      private BottomNavigationView bnv;
-      private final String WEBSITE_HOMEPAGE = "${WEBSITE_HOMEPAGE}";
-      private final String WEBSITE_SHOP = "${WEBSITE_SHOP}";
-      private final String WEBSITE_ACCOUNT = "${WEBSITE_ACCOUNT}";
-      private final String WEBSITE_ABOUTUS = "${WEBSITE_ABOUTUS}";
-      private ProgressBar pb;
-      @Override
-      protected void onCreate(Bundle savedInstanceState) {
-          super.onCreate(savedInstanceState);
-          setContentView(R.layout.activity_main);
-
-          wb = findViewById(R.id.webView);
-          bnv = findViewById(R.id.bottomNavigationView);
-
-          WebSettings webSettings = wb.getSettings();
-          webSettings.setJavaScriptEnabled(true);
-
-          pb = findViewById(R.id.progressBar);
-          wb.setWebViewClient(new AppWebViewClients(pb));
-          wb.getSettings().setAppCacheEnabled(true);
-          wb.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-          wb.loadUrl(WEBSITE_HOMEPAGE);
-
-          bnv.setSelectedItemId(R.id.homepage);
-          bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-              @Override
-              public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                  String url = null;
-
-                  switch(item.getItemId()){
-                      case R.id.homepage:
-                          url = WEBSITE_HOMEPAGE;
-                          break;
-                      case R.id.shop:
-                          url = WEBSITE_SHOP;
-                          break;
-                      case R.id.aboutus:
-                          url = WEBSITE_ABOUTUS;
-                          break;
-                      case R. id.account:
-                          url = WEBSITE_ACCOUNT;
-                          break;
-                  }
-                  wb.setWebViewClient(new AppWebViewClients(pb));
-                  wb.loadUrl(url);
-
-                  return true;
-              }
-          });
-
-
-      }
-      class AppWebViewClients extends WebViewClient {
-          private ProgressBar progressBar;
-
-          public AppWebViewClients(ProgressBar progressBar) {
-              this.progressBar=progressBar;
-              progressBar.setVisibility(View.VISIBLE);
-          }
-          @Override
-          public boolean shouldOverrideUrlLoading(WebView view, String url) {
-              // TODO Auto-generated method stub
-              view.loadUrl(url);
-              return true;
-          }
-
-          @Override
-          public void onPageFinished(WebView view, String url) {
-              // TODO Auto-generated method stub
-              super.onPageFinished(view, url);
-              progressBar.setVisibility(View.GONE);
-          }
-      }
-  }`;
+    import androidx.annotation.NonNull;
+    import androidx.appcompat.app.AppCompatActivity;
+    import android.os.Bundle;
+    import android.view.MenuItem;
+    import android.view.View;
+    import android.webkit.WebSettings;
+    import android.webkit.WebView;
+    import android.webkit.WebViewClient;
+    import android.widget.ProgressBar;
+    import com.google.android.material.bottomnavigation.BottomNavigationView;
+    public class MainActivity extends AppCompatActivity {
+        private WebView wb;
+        private BottomNavigationView bnv;
+        private final String WEBSITE_HOMEPAGE = "${WEBSITE_HOMEPAGE}";
+        private final String WEBSITE_SHOP = "${WEBSITE_SHOP}";
+        private final String WEBSITE_ACCOUNT = "${WEBSITE_ACCOUNT}";
+        private final String WEBSITE_ABOUTUS = "${WEBSITE_ABOUTUS}";
+        private ProgressBar pb;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            wb = findViewById(R.id.webView);
+            bnv = findViewById(R.id.bottomNavigationView);
+            WebSettings webSettings = wb.getSettings();
+            webSettings.setJavaScriptEnabled(true);
+            pb = findViewById(R.id.progressBar);
+            wb.setWebViewClient(new AppWebViewClients(pb));
+            wb.getSettings().setAppCacheEnabled(true);
+            wb.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+            wb.loadUrl(WEBSITE_HOMEPAGE);
+            bnv.setSelectedItemId(R.id.homepage);
+            bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    String url = null;
+                    switch(item.getItemId()){
+                        case R.id.homepage:
+                            url = WEBSITE_HOMEPAGE;
+                            break;
+                        case R.id.shop:
+                            url = WEBSITE_SHOP;
+                            break;
+                        case R.id.aboutus:
+                            url = WEBSITE_ABOUTUS;
+                            break;
+                        case R. id.account:
+                            url = WEBSITE_ACCOUNT;
+                            break;
+                    }
+                    wb.setWebViewClient(new AppWebViewClients(pb));
+                    wb.loadUrl(url);
+                    return true;
+                }
+            });
+        }
+        class AppWebViewClients extends WebViewClient {
+            private ProgressBar progressBar;
+            public AppWebViewClients(ProgressBar progressBar) {
+                this.progressBar=progressBar;
+                progressBar.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                view.loadUrl(url);
+                return true;
+            }
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                // TODO Auto-generated method stub
+                super.onPageFinished(view, url);
+                progressBar.setVisibility(View.GONE);
+            }
+        }
+    }`;
         return code;
     }
 </script>
