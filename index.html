@@ -27,7 +27,7 @@
     </button>
     <button type="button" class="btn btn-outline-primary" id="generateAndroidManifest" data-toggle="modal" data-target="#outputModal">
       生成 Android Manifest
-				  </button></div></div></div>
+	</button></div></div></div>
 <div class="modal fade" id="outputModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -38,11 +38,11 @@
         </button>
       </div>
       <div class="modal-body">
-        <textarea id="output" class="form-control" cols=100 rows=100 readonly>
+        <textarea id="output" class="form-control" rows=25 readonly>
     </textarea>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">複製</button>
+        <button type="button" id="copyOutput" class="btn btn-primary">複製</button>
       </div>
     </div>
   </div>
@@ -70,14 +70,20 @@ document.querySelector("button#generateAndroidManifest").addEventListener("click
 	projectName = document.querySelector("#projectName").value;
   setOutput(generateAndroidManifest(projectName))
 })
-function autogrow(textarea, length){
-    textarea.style.height= length*15 + 'px';
-}
-
+$("button#copyOutput").click(function(){
+	$("textarea").select();
+	document.execCommand("copy")
+	clearSelection();
+});
 function setOutput(output){
   document.querySelector("textarea#output").value = `${output}`
   output_length = output.split("\n").length
-  //autogrow(document.querySelector("textarea#output"), output_length)
+
+}
+function clearSelection()
+{
+ if (window.getSelection) {window.getSelection().removeAllRanges();}
+ else if (document.selection) {document.selection.empty();}
 }
 function generateAndroidManifest(projectName){
 	code = `<?xml version="1.0" encoding="utf-8"?>
