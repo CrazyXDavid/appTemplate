@@ -1,92 +1,102 @@
 <html>
-  <head>
+
+<head>
     <title>APP Template Generator</title>
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </head>
-  <body>
-	  <div class="container">
-		  <div class="row h-100 w-100">
-			  <div class="col my-auto mx-auto">
-    <input type="text" class="form-control" placeholder="Project Name (e.g. Hayhaynoodle)" id="projectName">
-    <input type="text" class="form-control" placeholder="WEBSITE_HOMEPAGE" id="homepage">
-    <input type="text" class="form-control" placeholder="WEBSITE_SHOP" id="shop">
-    <input type="text" class="form-control" placeholder="WEBSITE_ACCOUNT" id="account">
-    <input type="text" class="form-control" placeholder="WEBSITE_ABOUTUS" id="aboutus">
-    <button type="button" class="btn btn-outline-primary" id="generateXML" data-toggle="modal" data-target="#outputModal">
-    生成 XML
-    </button>
-    <button type="button" class="btn btn-outline-primary" id="generateJava" data-toggle="modal" data-target="#outputModal">
-      生成 Java
-    </button>
-    <button type="button" class="btn btn-outline-primary" id="generateThemeStyle" data-toggle="modal" data-target="#outputModal">
-      生成 Theme Style
-    </button>
-    <button type="button" class="btn btn-outline-primary" id="generateAndroidManifest" data-toggle="modal" data-target="#outputModal">
-      生成 Android Manifest
-	</button></div></div></div>
-<div class="modal fade" id="outputModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">生成</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <textarea id="output" class="form-control" rows=25 readonly>
-    </textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="copyOutput" class="btn btn-primary">複製</button>
-      </div>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row h-100 w-100">
+            <div class="col my-auto mx-auto">
+                <input type="text" class="form-control" placeholder="Project Name (e.g. Hayhaynoodle)" id="projectName">
+                <input type="text" class="form-control" placeholder="WEBSITE_HOMEPAGE" id="homepage">
+                <input type="text" class="form-control" placeholder="WEBSITE_SHOP" id="shop">
+                <input type="text" class="form-control" placeholder="WEBSITE_ACCOUNT" id="account">
+                <input type="text" class="form-control" placeholder="WEBSITE_ABOUTUS" id="aboutus">
+                <button type="button" class="btn btn-outline-primary" id="generateXML" data-toggle="modal" data-target="#outputModal">
+                    生成 XML
+                </button>
+                <button type="button" class="btn btn-outline-primary" id="generateJava" data-toggle="modal" data-target="#outputModal">
+                    生成 Java
+                </button>
+                <button type="button" class="btn btn-outline-primary" id="generateThemeStyle" data-toggle="modal" data-target="#outputModal">
+                    生成 Theme Style
+                </button>
+                <button type="button" class="btn btn-outline-primary" id="generateAndroidManifest" data-toggle="modal" data-target="#outputModal">
+                    生成 Android Manifest
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-  </body>
+    <div class="modal fade" id="outputModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">生成</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="output" class="form-control" rows=25 readonly></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="copyOutput" class="btn btn-primary">複製</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>
 <script>
-  document.querySelector("button#generateJava").addEventListener("click", function(){
-	projectName = document.querySelector("#projectName").value;
-	homepage = document.querySelector("#homepage").value;
-  shop = document.querySelector("#shop").value;
-  account = document.querySelector("#account").value;
-  aboutus = document.querySelector("#aboutus").value;
-  
-  setOutput(generateJava(projectName, homepage, shop, account,aboutus))
-})
-document.querySelector("button#generateXML").addEventListener("click", function(){
-  setOutput(generateXML())
-})
-document.querySelector("button#generateThemeStyle").addEventListener("click", function(){
-	projectName = document.querySelector("#projectName").value;
-  setOutput(generateThemeStyle(projectName))
-})
-document.querySelector("button#generateAndroidManifest").addEventListener("click", function(){
-	projectName = document.querySelector("#projectName").value;
-  setOutput(generateAndroidManifest(projectName))
-})
-$("button#copyOutput").click(function(){
-	$("textarea").select();
-	document.execCommand("copy")
-	clearSelection();
-});
-function setOutput(output){
-  document.querySelector("textarea#output").value = `${output}`
-  output_length = output.split("\n").length
+    document.querySelector("button#generateJava").addEventListener("click", function() {
+        projectName = document.querySelector("#projectName").value;
+        homepage = document.querySelector("#homepage").value;
+        shop = document.querySelector("#shop").value;
+        account = document.querySelector("#account").value;
+        aboutus = document.querySelector("#aboutus").value;
 
-}
-function clearSelection()
-{
- if (window.getSelection) {window.getSelection().removeAllRanges();}
- else if (document.selection) {document.selection.empty();}
-}
-function generateAndroidManifest(projectName){
-	code = `<?xml version="1.0" encoding="utf-8"?>
+        setOutput(generateJava(projectName, homepage, shop, account, aboutus))
+    })
+    document.querySelector("button#generateXML").addEventListener("click", function() {
+        setOutput(generateXML())
+    })
+    document.querySelector("button#generateThemeStyle").addEventListener("click", function() {
+        projectName = document.querySelector("#projectName").value;
+        setOutput(generateThemeStyle(projectName))
+    })
+    document.querySelector("button#generateAndroidManifest").addEventListener("click", function() {
+        projectName = document.querySelector("#projectName").value;
+        setOutput(generateAndroidManifest(projectName))
+    })
+    $("button#copyOutput").click(function() {
+        $("textarea").select();
+        document.execCommand("copy")
+        clearSelection();
+    });
+
+    function setOutput(output) {
+        document.querySelector("textarea#output").value = `${output}`
+        output_length = output.split("\n").length
+
+    }
+
+    function clearSelection() {
+        if (window.getSelection) {
+            window.getSelection().removeAllRanges();
+        } else if (document.selection) {
+            document.selection.empty();
+        }
+    }
+
+    function generateAndroidManifest(projectName) {
+        code = `<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hkmgt.${projectName.toLowerCase()}">
 
@@ -112,10 +122,11 @@ function generateAndroidManifest(projectName){
     </application>
 
 </manifest>`
-	return code;
-}
-function generateThemeStyle(projectName){
-	code = `<resources xmlns:tools="http://schemas.android.com/tools">
+        return code;
+    }
+
+    function generateThemeStyle(projectName) {
+        code = `<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.${projectName}" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
@@ -135,10 +146,11 @@ function generateThemeStyle(projectName){
         <item name="windowNoTitle">true</item>
     </style>
 </resources>`
-	return code
-}
-function generateXML(){
-	code = `  <?xml version="1.0" encoding="utf-8"?>
+        return code
+    }
+
+    function generateXML() {
+        code = `  <?xml version="1.0" encoding="utf-8"?>
   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
@@ -181,10 +193,11 @@ function generateXML(){
           app:menu="@menu/menu_navigation" />
 
   </LinearLayout>`;
-	return code;
-}
-function generateJava(projectName,WEBSITE_HOMEPAGE, WEBSITE_SHOP, WEBSITE_ACCOUNT, WEBSITE_ABOUTUS){
-  code = `  package com.hkmgt.${projectName.toLowerCase()};
+        return code;
+    }
+
+    function generateJava(projectName, WEBSITE_HOMEPAGE, WEBSITE_SHOP, WEBSITE_ACCOUNT, WEBSITE_ABOUTUS) {
+        code = `  package com.hkmgt.${projectName.toLowerCase()};
   import androidx.annotation.NonNull;
   import androidx.appcompat.app.AppCompatActivity;
 
@@ -274,6 +287,6 @@ function generateJava(projectName,WEBSITE_HOMEPAGE, WEBSITE_SHOP, WEBSITE_ACCOUN
           }
       }
   }`;
-  return code;
-}
+        return code;
+    }
 </script>
